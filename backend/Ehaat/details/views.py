@@ -61,3 +61,39 @@ def haatSingle(request, haatID):
 		return JsonResponse({"haat" : temp})
 	else:
 		return JsonResponse({"error" : True})
+
+def stallSingle(request, stallID):
+	try:
+		stall = Stall.objects.get(id = stallID)
+	except Exception as e:
+		print(e)
+		stall = None
+	if stall:
+		temp = dict()
+		temp["haatID"] = stall.haat
+		temp["stallID"] = stall.id
+		temp["name"] = stall.name
+		temp["stallNumber"] = stall.stallNumber
+		temp["story"] = stall.story
+		temp["tags"] = stall.tags.split(',')
+		return JsonResponse({"stall" : stall})
+	else:
+		return JsonResponse({"error" : True})
+
+def productSingle(request, productID):
+	try:
+		product = Product.objects.get(id = productID)
+	except Exception as e:
+		print(e)
+		product = None
+	if product:
+		temp = dict()
+		temp["stallID"] = product.stall
+		temp["productID"] = product.id
+		temp["name"] = product.name
+		temp["description"] = product.description
+		temp["price"] = product.price
+		temp["promotions"] = product.promotions
+		return JsonResponse({"product" : product})
+	else:
+		return JsonResponse({"error" : True})
