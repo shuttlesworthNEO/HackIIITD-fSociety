@@ -22,7 +22,7 @@ def stallList(request):
 	jsonObj = []
 	for stall in stalls:
 		temp = dict()
-		temp["haatID"] = stall.haat
+		temp["haatID"] = stall.haat.id
 		temp["stallID"] = stall.id
 		temp["name"] = stall.name
 		temp["stallNumber"] = stall.stallNumber
@@ -36,7 +36,7 @@ def productList(request):
 	jsonObj = []
 	for product in products:
 		temp = dict()
-		temp["stallID"] = product.stall
+		temp["stallID"] = product.stall.id
 		temp["productID"] = product.id
 		temp["name"] = product.name
 		temp["description"] = product.description
@@ -70,13 +70,13 @@ def stallSingle(request, stallID):
 		stall = None
 	if stall:
 		temp = dict()
-		temp["haatID"] = stall.haat
+		temp["haatID"] = stall.haat.id
 		temp["stallID"] = stall.id
 		temp["name"] = stall.name
 		temp["stallNumber"] = stall.stallNumber
 		temp["story"] = stall.story
 		temp["tags"] = stall.tags.split(',')
-		return JsonResponse({"stall" : stall})
+		return JsonResponse({"stall" : temp})
 	else:
 		return JsonResponse({"error" : True})
 
@@ -88,12 +88,12 @@ def productSingle(request, productID):
 		product = None
 	if product:
 		temp = dict()
-		temp["stallID"] = product.stall
+		temp["stallID"] = product.stall.id
 		temp["productID"] = product.id
 		temp["name"] = product.name
 		temp["description"] = product.description
 		temp["price"] = product.price
 		temp["promotions"] = product.promotions
-		return JsonResponse({"product" : product})
+		return JsonResponse({"product" : temp})
 	else:
 		return JsonResponse({"error" : True})

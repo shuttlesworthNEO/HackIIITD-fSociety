@@ -18,6 +18,9 @@ class Stall(models.Model):
 	story = models.TextField()
 	tags = models.TextField(null=True, blank=True)
 
+	def __str__(self):
+		return self.name
+
 class Rating(models.Model):
 	stall = models.ForeignKey(Stall, on_delete=models.CASCADE)
 	userName = models.CharField(max_length = 50)
