@@ -1,6 +1,7 @@
 from django.conf.urls import url
-from .views import haatList
+from .views import haatList, haatSingle
 
 urlpatterns = [
-	url(r'api/haat', haatList),
+	url(r'api/haats', haatList),
+	url(r'api/haat/(?P<haatID>\w+)', haatSingle)
 ]
