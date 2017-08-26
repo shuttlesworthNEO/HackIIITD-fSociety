@@ -25,6 +25,7 @@ class ProductHit(models.Model):
 	stall = models.ForeignKey(Stall, on_delete=models.CASCADE)
 	timestamp = models.DateTimeField(auto_now=True)
 
+
 	def __str__(self):
 		return self.product.name + "_hits"
 
