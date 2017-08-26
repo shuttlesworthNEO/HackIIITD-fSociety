@@ -17,7 +17,8 @@ class Stall(models.Model):
 	stallNumber = models.IntegerField()
 	story = models.TextField()
 	tags = models.TextField(null=True, blank=True)
-
+	imageURL = models.CharField(max_length = 500)
+	
 	def __str__(self):
 		return self.name
 
@@ -28,9 +29,17 @@ class Rating(models.Model):
 	issueDate = models.DateTimeField(auto_now_add=True)
 	text = models.TextField(null=True, blank=True)
 
+	def __str__(self):
+		return self.userName + "---" + str(self.stall.name) + "---" + self.stall.haat.name
+
+
 class Product(models.Model):
 	stall = models.ForeignKey(Stall, on_delete=models.CASCADE)
 	name = models.CharField(max_length = 50)
 	description = models.TextField()
 	price = models.IntegerField()
 	promotions = models.TextField(null=True, blank=True)
+	imageURL = models.CharField(max_length = 500)
+
+	def __str__(self):
+		return self.name + "---" + str(self.stall.name) + "---" + self.stall.haat.name

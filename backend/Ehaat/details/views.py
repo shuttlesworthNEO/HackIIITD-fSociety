@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.core.serializers import serialize
-from .models import Haat, Stall, Product
+from .models import Haat, Stall, Product, Rating
 # Create your views here.
 
 def haatList(request):
@@ -28,6 +28,16 @@ def stallList(request):
 		temp["stallNumber"] = stall.stallNumber
 		temp["story"] = stall.story
 		temp["tags"] = stall.tags.split(',')
+		temp["imageURL"] = stall.imageURL
+		temp["ratings"] = []
+		ratings = Rating.objects.filter(stall = stall.id)
+		if ratings:
+			for rating in ratings:
+				rt = dict()
+				rt["userName"] = rating.userName
+				rt["value"] = rating.value
+				rt["text"] = rating.text
+				temp["ratings"].append(rt)
 		jsonObj.append(temp)
 	return JsonResponse({"stalls" : jsonObj}, safe=False)
 
@@ -42,8 +52,21 @@ def productList(request):
 		temp["description"] = product.description
 		temp["price"] = product.price
 		temp["promotions"] = product.promotions
+		temp["imageURL"] = product.imageURL
 		jsonObj.append(temp)
-	return JsonResponse({'products' : temp}, safe=False)
+	return JsonResponse({'products' : jsonObj}, safe=False)
+
+# def stallRatings(request, stallID):
+# 	try:
+# 		ratings = Rating.objects.filter(stall.id = stallID)
+# 	except Exception as e:
+# 		print(e)
+# 		ratings = None
+# 	if ratings:
+# 		jsonObj = []
+# 		for rating in ratings:
+# 			temp = dict()
+# 			temp[""]
 
 def haatSingle(request, haatID):
 	try:
@@ -76,6 +99,16 @@ def stallSingle(request, stallID):
 		temp["stallNumber"] = stall.stallNumber
 		temp["story"] = stall.story
 		temp["tags"] = stall.tags.split(',')
+		temp["imageURL"] = stall.imageURL
+		ratings = Rating.objects.filter(stall = stallID)
+		temp["ratings"] = []
+		if ratings:
+			for rating in ratings:
+				rt = dict()
+				rt["userName"] = rating.userName
+				rt["value"] = rating.value
+				rt["text"] = rating.text
+				temp["ratings"].append(rt)
 		return JsonResponse({"stall" : temp})
 	else:
 		return JsonResponse({"error" : True})
@@ -94,6 +127,7 @@ def productSingle(request, productID):
 		temp["description"] = product.description
 		temp["price"] = product.price
 		temp["promotions"] = product.promotions
+		temp["imageURL"] = product.imageURL
 		return JsonResponse({"product" : temp})
 	else:
 		return JsonResponse({"error" : True})
