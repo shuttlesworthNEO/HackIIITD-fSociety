@@ -41,5 +41,10 @@ class Product(models.Model):
 	promotions = models.TextField(null=True, blank=True)
 	imageURL = models.CharField(max_length = 500)
 
+	@property
+	def totalhits(self):
+
+
+
 	def __str__(self):
 		return self.name + "---" + str(self.stall.name) + "---" + self.stall.haat.name
