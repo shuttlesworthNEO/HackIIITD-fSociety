@@ -38,6 +38,19 @@ def stallList(request):
 				rt["value"] = rating.value
 				rt["text"] = rating.text
 				temp["ratings"].append(rt)
+		temp["products"] = []
+		products = Product.objects.filter(stall = stall.id)
+		if products:
+			for product in products:
+				temp2 = dict()
+				temp2["stallID"] = product.stall.id
+				temp2["productID"] = product.id
+				temp2["name"] = product.name
+				temp2["description"] = product.description
+				temp2["price"] = product.price
+				temp2["promotions"] = product.promotions
+				temp2["imageURL"] = product.imageURL
+				temp["products"].append(temp2)
 		jsonObj.append(temp)
 	return JsonResponse({"stalls" : jsonObj}, safe=False)
 
@@ -55,18 +68,6 @@ def productList(request):
 		temp["imageURL"] = product.imageURL
 		jsonObj.append(temp)
 	return JsonResponse({'products' : jsonObj}, safe=False)
-
-# def stallRatings(request, stallID):
-# 	try:
-# 		ratings = Rating.objects.filter(stall.id = stallID)
-# 	except Exception as e:
-# 		print(e)
-# 		ratings = None
-# 	if ratings:
-# 		jsonObj = []
-# 		for rating in ratings:
-# 			temp = dict()
-# 			temp[""]
 
 def haatSingle(request, haatID):
 	try:
