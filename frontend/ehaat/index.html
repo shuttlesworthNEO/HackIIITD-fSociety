@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container"  id="skrollr-body" data-0="background-color:rgb(0,201,147);"data-400="background-color:rgb(74,173,255);" data-1000="background-color:rgb(74,173,255);"data-1300="background-color:rgb(0,201,147);">
+    <h1><i class="icon-circle-blank"></i></h1>
+    <h2>E-Haat</h2>
+    <br><br>
+    <p style="font-size: 40px"> Delhi Haat INA
+    <br>
+        <small id="address"></small>
+    </p>
+
+    <a class="arrow" href="#anchor1"><i class="icon-sort-down"></i></a>
+    </p>
+
+    <div class="section" id="sect1">
+        <div class="anchor" id="anchor1"></div>
+        <div class="hiddenIcon">
+            <i class="icon-mobile-phone"></i>
+        </div>
+        <div id="phone" data-0="margin-left: -20%; opacity:0" data-350="margin-left: 10%; opacity:1">
+
+            <div id="topBar">
+                <p>Press--->  <i class="icon-bookmark"></i>         </p>
+            </div>
+            <div id="screen">
+                <div id="map">
+                    <img id="placemark" class="notPlacemarked" src="https://s.cdpn.io/52524/CircleMarkerTest3.png">
+                </div><!--/ map-->
+            </div><!--/ screen-->
+        </div><!--/ phone-->
+        <div class="explanation" data-300="opacity: 0" data-350="opacity: 1">
+            <h2>Theme : North-East</h2>
+            <p id="info"></p>
+            <a class="arrow" href="#anchor2"><i class="icon-sort-down"></i></a>
+        </div><!--/ explanation-->
+    </div><!--/ sect1-->
+
+    <div class="section" id="sect2">
+        <div class="anchor" id="anchor2"></div>
+        <div class="hiddenIcon">
+            <i class="icon-twitter"></i>
+        </div>
+        <div id="twitter"  data-600="margin-top: -20%; opacity: 0" data-1000="margin-top: 0; opacity:1">
+            <i class="icon-twitter"></i>
+        </div>
+        <div class="explanation" data-850=" opacity: 0" data-900=" opacity:1">
+            <h2>Share your views on Twitter</h2>
+            <p>I don't think you'll ever forget the place. </p>
+            <a class="arrow" href="#anchor3"><i class="icon-sort-down"></i></a>
+        </div><!--/ explanation-->
+    </div><!--sect2-->
+
+    <div class="section" id="sect3">
+        <div class="anchor" id="anchor3"></div>
+        <div class="hiddenIcon">
+            <i class="icon-rocket icon-rotate-180"></i>
+            <p></p>
+        </div>
+        <div class="explanation-right" data-1350=" opacity: 0" data-1400=" opacity:1">
+            <h2>It's here already!</h2>
+            <!-- Begin MailChimp Signup Form -->
+
+            <div id="mc_embed_signup">
+                <form action="main.html">
+                    <div><input type="submit" value="Let's Go!" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                </form>
+            </div>
+
+            <!--End mc_embed_signup-->
+        </div><!--/ explanation-->
+        <div id="rocket" data-1100="margin-top:-300px; margin-right:0%; opacity: 0" data-1400="margin-top:50; margin-right:20%; opacity:1">
+            <i class="icon-rocket icon-rotate-180"></i>
+        </div><!--/ rocket-->
+    </div><!--sect2-->
+</div><!--/ band-->
+
+<script src="https://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.11/skrollr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+<script type="text/javascript">
+
+    var address;
+    var info;
+
+    $.ajax({url: "http://192.168.4.43:8000/api/haat/1", success: function(result){
+        address = document.getElementById("address");
+        address.innerHTML = address.innerHTML+(result.haat.address);
+
+        info = document.getElementById("info");
+        info.innerHTML = info.innerHTML+(result.haat.info);
+    }});
+
+</script>
+
+</body>
+</html>

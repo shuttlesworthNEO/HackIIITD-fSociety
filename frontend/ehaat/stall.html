@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div id="detailing" class="shop-details" style="display: block">
+
+    <div class="shop-header">
+        <br><br><br><br>
+        <center><h1 id="title"> Assamese Handicrafts </h1> </center>
+        <center><h4 id="rating">Rating: 3.0/5.0</h4></center>
+        <br><br>
+    </div>
+
+    <div class="inventory">
+
+        <center> <h3>Items in Stall</h3> </center>
+        <br>
+        <hr style="background-color: black">
+        <br><br>
+        <div class="row">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://www.camelcraft.com/indian-handicrafts/pottery-assam.jpg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Brass and Bell Metal Pots<i class="material-icons right">more_vert</i></span>
+                        <br>
+                        <p>Price: Rs 500<br></p>
+                        <p class="promo"><a href="#"></a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Description<i class="material-icons right">close</i></span>
+                        <p id="description2">Brass and Bell metal products of Assam are also loved for their utility as well as beauty. The cottage industry of Assam produces many products made of brass and bell such as water pots, dishes, bowls, spoons, and cymbals and so on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://www.camelcraft.com/indian-handicrafts/assam-bamboo-crafts.jpg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Wooden Furniture<i class="material-icons right">more_vert</i></span>
+                        <br>
+                        <p>Price: Rs 5000<br></p>
+                        <p class="promo"><a href="#"></a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Description<i class="material-icons right">close</i></span>
+                        <p id="description">Assam has a long tradition of weaving cloths. In fact, it is a way of life in many parts of the state even today. Most households in villages possesses a loom in which they weave cloths out of cotton and many kinds of the famous Assam silk namely, ‘Pat’ and ‘Muga’. They mostly create ‘mekhela-chaddar’ (a kind of sari worn by Assamese ladies), ‘Gamosa’ (towels) and other things by weaving.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://www.camelcraft.com/bamboo-crafts.jpg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Baskets<i class="material-icons right">more_vert</i></span>
+                        <br>
+                        <p>Price: Rs 150<br></p>
+                        <p class="promo"><a href="#"></a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Description<i class="material-icons right">close</i></span>
+                        <p id="description3">Cane and bamboo are used here exquisitely to make beautiful handicrafts. These have been made using the traditional methods of sewing and weaving. These constitute as great gift items.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <br><br>
+
+    <div class="shop-story">
+
+        <br>
+        <center><p class="heading">About</p></center>
+        <hr>
+        <center><p id="story"></p>
+        </center>
+    </div>
+
+    <center> <h1> Reviews </h1></center>
+    <br>
+    <hr style="background-color: black">
+    <div class='reviews'>
+        <!-- Panel one -->
+        <div class='panel'>
+            <img src='http://www.designbolts.com/wp-content/uploads/2014/01/Liz-Sherman-Flat-Design.png'>
+            <p>
+                Really good shop. Nice price for a good purchase. Loved the baskets.
+            </p>
+            <h7>Supriya Sharma</h7>
+        </div>
+    </div>
+    <div class='reviews'>
+        <!-- Panel one -->
+        <div class='panel'>
+            <img src='http://www.designbolts.com/wp-content/uploads/2014/01/Superman-Flat-Design.png'>
+            <p>
+                Lovely products. Loved the brass items. Good price and quaity. :)
+            </p>
+            <h7>Ramesh Sharma</h7>
+        </div>
+    </div>
+    <script>
+        speed = 600
+    </script>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+<script type="text/javascript">
+
+    function addStory(story){
+        var storyHTML = document.getElementById("story");
+        storyHTML.innerHTML = storyHTML.innerHTML + story;
+    }
+
+    $.ajax({url: "http://192.168.4.43:8000/api/stalls", success: function(result){
+
+        var stalls = result.stalls;
+
+        console.log(result.stalls);
+        for(var i=0;i<stalls.length;i++){
+            addStall(stalls[i]);
+        }
+    }});
+
+        addStory(stalls[0].story);
+</script>
+</body>
+</html>
