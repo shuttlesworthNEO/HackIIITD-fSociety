@@ -76,12 +76,7 @@
       <div class="card border-info">
         <div class="card-body">
           <h4 class="card-title text-center">Inventory Summary</h4>
-          <div class="list-group">
-            {% for item in inventoryData %}
-            <a href="#" class="list-group-item list-group-item-action">Quantity in Hand : 15</a>
-            <a href="#" class="list-group-item list-group-item-action">Quantity to be Recieved : 10</a>
-            {% endfor %}
-          </div>
+          <canvas id="inventory" width="400" height="400"></canvas>
         </div>
       </div>
     </div>
@@ -165,6 +160,10 @@
     <script type="text/javascript">
       var date = new Date;
       $("#dates").html(date);
+    </script>
+    <script>
+        new Chart(document.getElementById("inventory"),{"type":"horizontalBar","data":{"labels":[{% for item in inventoryData %}"{{item.product.name}}",{% endfor %}],"datasets":[{"label":"Total","data":[{% for item in inventoryData %}{{item.total}},{% endfor %}],"fill":true,"borderColor":"rgb(75, 192, 192)","lineTension":0.1}]},"options":{}});
+        Chart.defaults.global.responsive = true;
     </script>
   </body>
   </html>
