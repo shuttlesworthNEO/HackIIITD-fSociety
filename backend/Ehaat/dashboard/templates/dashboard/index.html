@@ -125,10 +125,10 @@
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["Brass and Bells", "Wooden Furniture", "Baskets"],
+          labels: [{% for data,val in prodHits.items %} "{{data}}", {% endfor %}],
           datasets: [{
             label: '# of Hits',
-            data: [40, 21, 50],
+            data: [{% for data,val in prodHits.items %} {{val}}, {% endfor %}],
             backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

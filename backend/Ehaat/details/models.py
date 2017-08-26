@@ -22,6 +22,12 @@ class Stall(models.Model):
 	def __str__(self):
 		return self.name
 
+	@property
+	def totalhits(self):
+		from dashboard.models import StallHit
+		hits = StallHit.objects.filter(stall = self.stall).count()
+		return hits
+
 class Rating(models.Model):
 	stall = models.ForeignKey(Stall, on_delete=models.CASCADE)
 	userName = models.CharField(max_length = 50)
@@ -43,6 +49,9 @@ class Product(models.Model):
 
 	@property
 	def totalhits(self):
+		from dashboard.models import ProductHit
+		hits = ProductHit.objects.filter(product = self.product).count()
+		return hits
 
 
 
