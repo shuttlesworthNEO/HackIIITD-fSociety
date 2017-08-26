@@ -53,9 +53,8 @@
         <div class="card-body">
           <h4 class="card-title text-center">Sales Statistics</h4>
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">Total Sales : ₹ 10,150.0</a>
-            <a href="#" class="list-group-item list-group-item-action">Total Products Sold : 12</a>
-            <a href="#" class="list-group-item list-group-item-action">Net Profit : ₹ 4,500</a>
+            <a href="#" class="list-group-item list-group-item-action">Total Sales : ₹ {{totalSales}}</a>
+            <a href="#" class="list-group-item list-group-item-action">Total Products Sold : {{totalSold}}</a>
           </div>
         </div>
       </div>
@@ -91,10 +90,10 @@
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["Brass and Bells", "Wooden Furniture", "Baskets"],
+          labels: [{% for data,val in salesDif.items %} "{{data}}", {% endfor %}],
           datasets: [{
             label: '# of Sales',
-            data: [4, 1, 7],
+            data: [{% for data,val in salesDif.items %} {{val}}, {% endfor %}],
             backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

@@ -14,11 +14,18 @@ def dash(request, stallID):
 	products = Product.objects.filter(stall = stallID)
 	inventory = Inventory.objects.filter(stall = stallID)
 	stallHits = StallHit.objects.filter(id = stallID)
+	sales = Sale.objects.filter(stall = stallID)
+	totalSold = sales.count()
+	totalSales = sales.aggregate(Sum('salePrice'))["salePrice__sum"]
+	salesDif = dict()
+	# print(totalSold, totalSales)
 	prodHits = dict()
 	for prod in products:
 		hits = ProductHit.objects.filter(stall = stallID, product = prod.id).count()
+		total = Sale.objects.filter(stall = stallID, product = prod.id).count()
 		prodHits[prod.name] = hits
-	return render(request, 'dashboard/index.html', {"stallData" : stall, "productData" : products, "inventoryData" : inventory, "prodHits" : prodHits, "stallHits" : stallHits})
+		salesDif[prod.name] = total
+	return render(request, 'dashboard/index.html', {"stallData" : stall, "productData" : products, "inventoryData" : inventory, "prodHits" : prodHits, "stallHits" : stallHits, "totalSold" : totalSold, "totalSales" : totalSales, "salesDif" : salesDif})
 
 @csrf_exempt
 def prodHits(request):
